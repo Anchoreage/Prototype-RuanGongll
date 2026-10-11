@@ -1,0 +1,7 @@
+* text=auto
+
+# Preserve CRLF bytes in GitHub ZIP downloads as well as Git checkouts.
+*.cmd -text whitespace=cr-at-eol
+*.docx binary
+*.png binary
+*.zip binary

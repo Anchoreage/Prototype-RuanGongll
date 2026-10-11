@@ -1,0 +1,12 @@
+node_modules/
+.qa/
+.publish/
+reference/
+__pycache__/
+*.py[cod]
+*.log
+.env
+.env.*
+!.env.example
+deliverables/法律论证标注系统项目原型/
+软件工程作业.zip

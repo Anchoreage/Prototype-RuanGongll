@@ -1,0 +1,96 @@
+{
+  "name": "中文裁判文书法律论证标注指南",
+  "version": "v1.1",
+  "tags": [
+    {
+      "code": "SF",
+      "name": "个别事实判断",
+      "description": "关于本案具体对象、行为或证据的事实判断。",
+      "example": "原告已依约提供劳务。"
+    },
+    {
+      "code": "GF",
+      "name": "一般事实判断",
+      "description": "经验法则、常识或科学规律等一般性事实判断。",
+      "example": "通常情况下，转账记录可反映资金往来。"
+    },
+    {
+      "code": "SM",
+      "name": "个别规范判断",
+      "description": "对本案作出的法律评价，包括法律关系和裁判结论。",
+      "example": "被告应向原告支付该11000元。"
+    },
+    {
+      "code": "GM",
+      "name": "一般规范判断",
+      "description": "可以适用于不特定案件的一般规范依据。",
+      "example": "当事人应当按照约定全面履行自己的义务。"
+    }
+  ],
+  "subtypes": [
+    {
+      "code": "GM-L",
+      "name": "法律条文"
+    },
+    {
+      "code": "GM-I",
+      "name": "法律解释"
+    },
+    {
+      "code": "GM-U",
+      "name": "习惯与行业惯例"
+    },
+    {
+      "code": "GM-M",
+      "name": "道德与价值观念"
+    },
+    {
+      "code": "GM-O",
+      "name": "其他规范判断"
+    },
+    {
+      "code": "SM-C",
+      "name": "合同及合同解释"
+    }
+  ],
+  "relations": [
+    {
+      "code": "S",
+      "name": "支持",
+      "description": "起点为终点的成立提供理由。",
+      "symbol": "●",
+      "example": "S(p5, p6)"
+    },
+    {
+      "code": "A",
+      "name": "反对",
+      "description": "起点为目标命题或支持关系的不成立提供理由。",
+      "symbol": "○",
+      "example": "A(p3, S(p1, p2))"
+    },
+    {
+      "code": "J",
+      "name": "组合",
+      "description": "至少两个对象缺一不可地共同成立；没有方向。",
+      "symbol": "⊕",
+      "example": "J(p2, p3)"
+    },
+    {
+      "code": "M",
+      "name": "匹配",
+      "description": "个别判断对应一般判断的构成要件；方向为个别到一般。",
+      "symbol": "⊕",
+      "example": "M(J(p2, p3), p1)"
+    },
+    {
+      "code": "I",
+      "name": "同一",
+      "description": "至少两个命题在语义上表达同一判断；没有方向。",
+      "symbol": "/",
+      "example": "I(p1, p2)"
+    }
+  ],
+  "sourceName": "课程提供的标注与图示指南",
+  "sourceText": "",
+  "importedAt": null
+}
