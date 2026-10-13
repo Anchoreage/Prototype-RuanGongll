@@ -33,7 +33,20 @@ export const REVIEW_ITEMS = [
  {id:'c1',title:'组合结构是否完整',text:'本案中，原、被告之间系劳务合同关系，原告已依约提供劳务，被告应按照约定给付劳务报酬。',a:'S(p3, p4)',b:'S(M(J(p2, p3), p1), p4)',suggestion:'B',explanation:'合同法律关系与已经履行劳务须共同对应履行义务规范；单独的事实命题没有表达完整的规范适用结构。'},
  {id:'c2',title:'支持关系的方向',text:'根据原告提交的欠条、微信转账记录可以认定，被告尚欠原告劳务报酬11000元。',a:'S(p5, p6)',b:'S(p6, p5)',suggestion:'A',explanation:'欠条及转账记录是认定欠款事实的理由，方向应从证据判断 p5 指向欠款判断 p6。'},
 ];
-export function freshAttempt(guided=true,guide=DEFAULT_GUIDE){return {schemaVersion:1,guide,props:guided?STANDARD_PROPS.slice(0,3):[],rels:guided?STANDARD_RELS.slice(0,2):[],mode:guided?'guided':'independent',submitted:false,submittedAt:null,startedAt:Date.now(),elapsedSeconds:null};}
+export const FLOW_STAGES = [
+ {code:'training',name:'训练',task:'指南学习'},
+ {code:'trial',name:'试标',task:'命题与关系试标'},
+ {code:'annotation',name:'正式标注',task:'命题标注与关系构建'},
+ {code:'revision',name:'复核修订',task:'检查并修改标注'},
+];
+export const REVIEW_CHECKS = [
+ {code:'boundaries',name:'命题边界',description:'已对照原文检查命题范围与完整性'},
+ {code:'labels',name:'标签类型',description:'已依据当前指南检查标签及子类型'},
+ {code:'relations',name:'关系结构',description:'已检查关系方向、端点及嵌套结构'},
+];
+export function emptyReviewChecks(){return Object.fromEntries(REVIEW_CHECKS.map(x=>[x.code,false]));}
+export function reviewComplete(state){return state.stage==='revision'&&REVIEW_CHECKS.every(x=>state.reviewChecks?.[x.code]===true);}
+export function freshAttempt(guided=true,guide=DEFAULT_GUIDE){return {schemaVersion:1,guide,props:guided?STANDARD_PROPS.slice(0,3):[],rels:guided?STANDARD_RELS.slice(0,2):[],mode:guided?'guided':'independent',stage:'training',trainingConfirmedAt:null,trialResult:null,reviewChecks:emptyReviewChecks(),reviewConfirmedAt:null,submitted:false,submittedAt:null,startedAt:Date.now(),elapsedSeconds:null};}
 export function numbering(props,rels){const map={};[...props].sort((a,b)=>a.start-b.start).forEach((p,i)=>map[p.id]='p'+(i+1));rels.forEach((r,i)=>map[r.id]='r'+(i+1));return map;}
 export function expression(id,props,rels,seen=new Set()) {const nums=numbering(props,rels);if(seen.has(id)) return '[循环]';const r=rels.find(x=>x.id===id);if(!r)return nums[id]||'[已删除]';const next=new Set(seen).add(id);const args=r.sources.map(x=>expression(x,props,rels,next));if(r.target)args.push(expression(r.target,props,rels,next));return `${r.type}(${args.join(', ')})`;}
 export function checkRelation(r,props,rels){
